@@ -33,7 +33,7 @@ const app = new Elysia()
         },
       )
 
-      .put(
+      .patch(
         '/:id',
         ({ params: { id }, body, status }) => {
           const existing = db.query('SELECT * FROM todos WHERE id = ?').get(id) as Todo | null
@@ -60,7 +60,7 @@ const app = new Elysia()
           params: t.Object({ id: t.Numeric() }),
           body: t.Object({
             title: t.Optional(t.String({ minLength: 1 })),
-            description: t.Optional(t.String()),
+            description: t.Optional(t.Nullable(t.String())),
             completed: t.Optional(t.Boolean()),
           }),
         },
