@@ -49,7 +49,6 @@ const completeTodo = async (id: number, todo: Todo) => {
   const previous = todo.completed;
   try {
     await updateTodo(id, { completed: todo.completed });
-    await fetchTodos();
   } catch {
     todo.completed = previous;
     console.error('unable to update todo.');
@@ -91,7 +90,8 @@ onMounted(() => {
         <h2 class="text-sm font-medium text-muted-foreground">Todos</h2>
         <ul class="flex flex-col gap-2 rounded-lg border border-border bg-card p-2 min-h-40">
           <li v-for="todo in todos" :key="todo.id" class="flex items-start gap-3 rounded-md p-2">
-            <input  type="checkbox" class="mt-1 size-4 rounded border-input" v-model="todo.completed" @change="completeTodo(todo.id, todo)"/>
+            <input type="checkbox" class="mt-1 size-4 rounded border-input" v-model="todo.completed"
+              @change="completeTodo(todo.id, todo)" />
             <div class="flex flex-col flex-1" :class="{ 'opacity-50 line-through': todo.completed }">
               <span class="text-sm font-medium">{{ todo.title }}</span>
               <span class="text-sm text-muted-foreground">{{ todo.description }}</span>
